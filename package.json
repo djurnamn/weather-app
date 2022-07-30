@@ -1,7 +1,7 @@
 {
   "name": "weather-app",
   "version": "1.0.0",
-  "main": "api.js",
+  "main": "backend/api.js",
   "repository": "git@github.com:djurnamn/weather-app.git",
   "author": "djurnamn",
   "license": "MIT",
@@ -9,7 +9,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "api-serve": "node backend/api.js"
   },
   "dependencies": {
     "@vueuse/core": "^9.0.2",
@@ -56,5 +57,6 @@
     "last 2 versions",
     "not dead",
     "not ie 11"
-  ]
+  ],
+  "type": "module"
 }
