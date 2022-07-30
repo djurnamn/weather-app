@@ -12,7 +12,7 @@ export const getDateDescriptionFromTimestamp = (timestamp) => {
     const startOfToday = moment().startOf('day')
     const startOfDate = moment(timestamp * 1000).startOf('day')
     let dateDescription = moment(timestamp * 1000)
-        .format(`dddd${(!startOfDate.isSame(startOfToday, 'week') ? 'MMM (Do)' : '')}`)
+        .format(`dddd${(!startOfDate.isSame(startOfToday, 'week') ? ' (MMM Do)' : '')}`)
     const daysDiff = startOfDate.diff(startOfToday, 'days')
     
     const days = {
