@@ -21,3 +21,8 @@ Serve the Weather API (on port 3000)
 ```
 node api.js
 ```
+
+Run the Vue app:
+```
+yarn serve
+```
