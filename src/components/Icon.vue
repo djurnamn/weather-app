@@ -1,0 +1,92 @@
+<template>
+    <button class="Icon" :class="modifiers">
+        <template v-if="name === 'home'">
+            <SvgWrapper class="Icon__inner Icon__inner--outline">
+                <path d="M22.262 10.468c-3.39-2.854-9.546-8.171-9.607-8.225l-.655-.563-.652.563c-.062.053-6.221 5.368-9.66 8.248-.438.394-.688.945-.688 1.509 0 1.104.896 2 2 2h1v6c0 1.104.896 2 2 2h12c1.104 0 2-.896 2-2v-6h1c1.104 0 2-.896 2-2 0-.598-.275-1.161-.738-1.532zm-8.262 9.532h-4v-5h4v5zm4-8l.002 8h-3.002v-6h-6v6h-3v-8h-3.001c2.765-2.312 7.315-6.227 9.001-7.68 1.686 1.453 6.234 5.367 9 7.681l-3-.001z"/>
+            </SvgWrapper>
+            <SvgWrapper class="Icon__inner Icon__inner--full">
+                <path d="M12 3s-6.186 5.34-9.643 8.232c-.203.184-.357.452-.357.768 0 .553.447 1 1 1h2v7c0 .553.447 1 1 1h3c.553 0 1-.448 1-1v-4h4v4c0 .552.447 1 1 1h3c.553 0 1-.447 1-1v-7h2c.553 0 1-.447 1-1 0-.316-.154-.584-.383-.768-3.433-2.892-9.617-8.232-9.617-8.232z"/>
+            </SvgWrapper>
+        </template>
+        <template v-else-if="name === 'heart'">
+            <SvgWrapper class="Icon__inner Icon__inner--outline">
+                <path d="M12 20c-.195 0-.391-.057-.561-.172-.225-.151-5.508-3.73-7.146-5.371-1.831-1.831-2.043-3.777-2.043-5.082 0-2.964 2.411-5.375 5.375-5.375 1.802 0 3.398.891 4.375 2.256.977-1.365 2.573-2.256 4.375-2.256 2.964 0 5.375 2.411 5.375 5.375 0 1.305-.212 3.251-2.043 5.082-1.641 1.641-6.923 5.22-7.146 5.371-.17.115-.366.172-.561.172zm-4.375-14c-1.861 0-3.375 1.514-3.375 3.375 0 1.093.173 2.384 1.457 3.668 1.212 1.212 4.883 3.775 6.293 4.746 1.41-.971 5.081-3.534 6.293-4.746 1.284-1.284 1.457-2.575 1.457-3.668 0-1.861-1.514-3.375-3.375-3.375s-3.375 1.514-3.375 3.375c0 .552-.447 1-1 1s-1-.448-1-1c0-1.861-1.514-3.375-3.375-3.375z"/>
+            </SvgWrapper>
+            <SvgWrapper class="Icon__inner Icon__inner--half">
+                <path d="M2.2 9.4c0 1.3.2 3.3 2 5.1 1.6 1.6 6.9 5.2 7.1 5.4.2.1.4.2.6.2s.4-.1.6-.2c.2-.2 5.5-3.7 7.1-5.4 1.8-1.8 2-3.8 2-5.1 0-3-2.4-5.4-5.4-5.4-1.6 0-3.2.9-4.2 2.3-1-1.4-2.6-2.3-4.4-2.3-2.9 0-5.4 2.4-5.4 5.4zm9.8 1c.6 0 1-.4 1-1 0-1.9 1.5-3.4 3.4-3.4s3.4 1.5 3.4 3.4c0 1.1-.2 2.4-1.5 3.7-1.2 1.2-4.9 3.8-6.3 4.7v-7.4z"/>
+            </SvgWrapper>
+            <SvgWrapper class="Icon__inner Icon__inner--full" >
+                <path d="M2.2 9.4c0 1.3.2 3.3 2 5.1 1.6 1.6 6.9 5.2 7.1 5.4.2.1.4.2.6.2s.4-.1.6-.2c.2-.2 5.5-3.7 7.1-5.4 1.8-1.8 2-3.8 2-5.1 0-3-2.4-5.4-5.4-5.4-1.6 0-3.2.9-4.2 2.3-1-1.4-2.6-2.3-4.4-2.3-2.9 0-5.4 2.4-5.4 5.4z"/>
+            </SvgWrapper>
+        </template>
+    </button>
+</template>
+
+<script>
+import SvgWrapper from './SvgWrapper.vue';
+
+export default {
+    name: "IconComponent",
+    props: {
+        name: {
+            default: "home",
+            type: String,
+        },
+        type: {
+            default: "full",
+            type: String,
+        },
+        hover: Boolean
+    },
+    computed: {
+        modifiers() {
+            const blockClass = "Icon";
+            return [
+                ...(this.type ? [`${blockClass}--${this.type}`] : []),
+                ...(this.hover ? [`${blockClass}--hover`] : [])
+            ];
+        }
+    },
+    components: { SvgWrapper }
+}
+</script>
+
+<style lang="scss">
+.Icon {
+    $block: &;
+
+    display: flex;
+
+    &__inner {
+        width: 2rem;
+        height: auto;
+    }
+
+    &:not(&--hover) {
+        @each $type in (outline, full) {
+            &#{$block}--#{$type} #{$block}__inner:not(#{$block}__inner--#{$type}) {
+                display: none;
+            }
+        }
+    }
+
+    &--hover {
+        &:focus:not(:active),
+        &:not(:hover):not(:active):not(:focus) {
+            @each $opposite, $type in (full: outline, outline: full) {
+                &#{$block}--#{$type} #{$block}__inner:not(#{$block}__inner--#{$opposite}) {
+                    display: none;
+                }
+            }
+        }
+
+        &:hover:not(:focus),
+        &:active:not(:focus),
+        &:hover:active:focus {
+            #{$block}__inner:not(#{$block}__inner--half) {
+                display: none;
+            }
+        }
+    }
+}
+</style>
