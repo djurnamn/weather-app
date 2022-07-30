@@ -7,10 +7,8 @@
           <Transition mode="out-in">
             <KeepAlive>
               <Suspense>
-                <!-- main content -->
                 <component :is="Component"></component>
 
-                <!-- loading state -->
                 <template #fallback>
                   Loading...
                 </template>
@@ -24,10 +22,10 @@
     <nav class="App__navigation">
       <ul class="App__navigation-items">
         <li class="App__navigation-item">
-          <router-link class="App__navigation-link" to="/"><Icon name="home" type="outline" /> Weather</router-link>
+          <router-link class="App__navigation-link" to="/"><IconButton name="home" type="outline" /> Weather</router-link>
         </li>
         <li class="App__navigation-item">
-          <router-link class="App__navigation-link" to="/favorites"><Icon name="heart" type="outline" /> Favorites</router-link>
+          <router-link class="App__navigation-link" to="/favorites"><IconButton name="heart" type="outline" /> Favorites</router-link>
         </li>
       </ul>
     </nav>
@@ -36,7 +34,7 @@
 
 <script>
 import { onErrorCaptured, ref } from 'vue'
-import Icon from './components/Icon.vue'
+import IconButton from './components/IconButton.vue'
 
 export default {
   name: "App",
@@ -50,7 +48,7 @@ export default {
     return { error }
   },
   components: {
-    Icon
+    IconButton
   }
 }
 </script>

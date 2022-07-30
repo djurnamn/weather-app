@@ -18,7 +18,7 @@
                     />
             
                     <button @click="(event) => toggleFavorite(day.id, event)">
-                        <Icon
+                        <IconButton
                             name="heart"
                             :type="inFavorites(day.id) ? 'outline' : 'full'"
                             hover
@@ -41,7 +41,7 @@
 
 <script>
 import { useMainStore } from '../store/index.js'
-import Icon from './Icon.vue'
+import IconButton from './IconButton.vue'
 
 export default {
     setup() {
@@ -70,7 +70,7 @@ export default {
         days: Array
     },
     components: {
-        Icon
+        IconButton
     }
 }
 </script>
