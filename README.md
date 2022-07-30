@@ -19,7 +19,7 @@ docker run --name my-redis -p 6379:6379 -d redis
 
 Serve the Weather API (on port 3000)
 ```
-node api.js
+yarn serve-api
 ```
 
 Run the Vue app:
