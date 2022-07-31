@@ -5,6 +5,6 @@ import { createPinia } from 'pinia'
 import 'the-new-css-reset/css/reset.css'
 
 createApp(App)
-    .use(router)
-    .use(createPinia())
-    .mount('#app')
+  .use(router)
+  .use(createPinia())
+  .mount('#app')

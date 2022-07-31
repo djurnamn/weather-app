@@ -1,41 +1,50 @@
 <template>
-    <button class="IconButton" :class="modifiers">
-        <SvgIcon v-for="iconType in iconTypes" :name="name" :type="iconType" :class="`Icon__inner Icon__inner--${iconType}`" :key="`${name}${iconType}`" />
-    </button>
+  <button
+    class="IconButton"
+    :class="modifiers"
+  >
+    <SvgIcon
+      v-for="iconType in iconTypes"
+      :key="`${name}${iconType}`"
+      :name="name"
+      :type="iconType"
+      :class="`Icon__inner Icon__inner--${iconType}`"
+    />
+  </button>
 </template>
 
 <script>
-import SvgIcon from './SvgIcon.vue';
+import SvgIcon from './SvgIcon.vue'
 
 export default {
-    name: "IconButton",
-    props: {
-        name: {
-            default: "home",
-            type: String,
-        },
-        type: {
-            default: "full",
-            type: String,
-        },
-        hover: Boolean
+  name: 'IconButton',
+  components: { SvgIcon },
+  props: {
+    name: {
+      default: 'home',
+      type: String
     },
-    computed: {
-        iconTypes() {
-            return this.hover
-                ? ['outline', ...(this.name === 'heart' ? ['half'] : []), 'full']
-                : [this.type] 
-        },
-        modifiers() {
-            const blockClass = "Icon"
+    type: {
+      default: 'full',
+      type: String
+    },
+    hover: Boolean
+  },
+  computed: {
+    iconTypes () {
+      return this.hover
+        ? ['outline', ...(this.name === 'heart' ? ['half'] : []), 'full']
+        : [this.type]
+    },
+    modifiers () {
+      const blockClass = 'Icon'
 
-            return [
-                ...(this.type ? [`${blockClass}--${this.type}`] : []),
-                ...(this.hover ? [`${blockClass}--hover`] : [])
-            ]
-        }
-    },
-    components: { SvgIcon }
+      return [
+        ...(this.type ? [`${blockClass}--${this.type}`] : []),
+        ...(this.hover ? [`${blockClass}--hover`] : [])
+      ]
+    }
+  }
 }
 </script>
 

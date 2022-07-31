@@ -1,13 +1,18 @@
 <template>
   <div class="App">
     <main class="App__main">
-      <div v-if="error">App: {{ error }}</div>
-      <RouterView v-slot="{ Component }" v-else>
+      <div v-if="error">
+        App: {{ error }}
+      </div>
+      <RouterView
+        v-else
+        v-slot="{ Component }"
+      >
         <template v-if="Component">
           <Transition mode="out-in">
             <KeepAlive>
               <Suspense>
-                <component :is="Component"></component>
+                <component :is="Component" />
 
                 <template #fallback>
                   Loading...
@@ -18,14 +23,30 @@
         </template>
       </RouterView>
     </main>
-  
+
     <nav class="App__navigation">
       <ul class="App__navigation-items">
         <li class="App__navigation-item">
-          <router-link class="App__navigation-link" to="/"><IconButton name="home" type="outline" /> Weather</router-link>
+          <router-link
+            class="App__navigation-link"
+            to="/"
+          >
+            <IconButton
+              name="home"
+              type="outline"
+            /> Weather
+          </router-link>
         </li>
         <li class="App__navigation-item">
-          <router-link class="App__navigation-link" to="/favorites"><IconButton name="heart" type="outline" /> Favorites</router-link>
+          <router-link
+            class="App__navigation-link"
+            to="/favorites"
+          >
+            <IconButton
+              name="heart"
+              type="outline"
+            /> Favorites
+          </router-link>
         </li>
       </ul>
     </nav>
@@ -37,8 +58,11 @@ import { onErrorCaptured, ref } from 'vue'
 import IconButton from './components/IconButton.vue'
 
 export default {
-  name: "App",
-  setup() {
+  name: 'App',
+  components: {
+    IconButton
+  },
+  setup () {
     const error = ref(null)
 
     onErrorCaptured((e) => {
@@ -46,9 +70,6 @@ export default {
     })
 
     return { error }
-  },
-  components: {
-    IconButton
   }
 }
 </script>

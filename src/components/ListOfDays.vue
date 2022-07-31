@@ -1,42 +1,45 @@
 <template>
-    <div class="ListOfDays">
-        <ul class="ListOfDays__items">
-            <li
-                class="ListOfDays__item"
-                v-for="day in days"
-                :key="`${day.id}`"
-            >
-                <router-link :to="`/${day.dateDescription === 'Today' ? '' : day.id}`" class="ListOfDays__item-link">
-                    <h2 class="ListOfDays__item-date-description">
-                        {{ day.dateDescription }}
-                    </h2>
-            
-                    <img
-                        class="ListOfDays__item-icon"
-                        :src="require(`@/assets/weather-icons/svg/${day.icon}.svg`)"
-                        :alt="day.description"
-                    />
-            
-                    <button @click="(event) => toggleFavorite(day.id, event)">
-                        <IconButton
-                            name="heart"
-                            :type="inFavorites(day.id) ? 'outline' : 'full'"
-                            hover
-                        />
-                    </button>
-            
-                    <div
-                        v-for="timeOfDay of ['night', 'day']"
-                        class="ListOfDays__item-temperature"
-                        :class="`ListOfDays__item-temperature--${timeOfDay}`"
-                        :key="`${day.id}-temp-${timeOfDay}`"
-                    >
-                        {{ timeOfDay === 'night' ? day.temperatureNight : day.temperatureDay }}°
-                    </div>
-                </router-link>
-            </li>
-        </ul>
-    </div>
+  <div class="ListOfDays">
+    <ul class="ListOfDays__items">
+      <li
+        v-for="day in days"
+        :key="`${day.id}`"
+        class="ListOfDays__item"
+      >
+        <router-link
+          :to="`/${day.dateDescription === 'Today' ? '' : day.id}`"
+          class="ListOfDays__item-link"
+        >
+          <h2 class="ListOfDays__item-date-description">
+            {{ day.dateDescription }}
+          </h2>
+
+          <img
+            class="ListOfDays__item-icon"
+            :src="require(`@/assets/weather-icons/svg/${day.icon}.svg`)"
+            :alt="day.description"
+          >
+
+          <button @click="(event) => toggleFavorite(day.id, event)">
+            <IconButton
+              name="heart"
+              :type="inFavorites(day.id) ? 'outline' : 'full'"
+              hover
+            />
+          </button>
+
+          <div
+            v-for="timeOfDay of ['night', 'day']"
+            :key="`${day.id}-temp-${timeOfDay}`"
+            class="ListOfDays__item-temperature"
+            :class="`ListOfDays__item-temperature--${timeOfDay}`"
+          >
+            {{ timeOfDay === 'night' ? day.temperatureNight : day.temperatureDay }}°
+          </div>
+        </router-link>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -44,34 +47,37 @@ import { useMainStore } from '../store/index.js'
 import IconButton from './IconButton.vue'
 
 export default {
-    setup() {
-        const store = useMainStore()
-
-        const inFavorites = (id) => {
-            return store.favoritesInclude(id)
-        }
-
-        const toggleFavorite = (id, event) => {
-            event.preventDefault()
-
-            if (!store.favoritesInclude(id)) {
-                store.addFavorite(id)
-            } else {
-                store.removeFavorite(id)
-            }
-        }
-
-        return {
-            inFavorites,
-            toggleFavorite
-        }
-    },
-    props: {
-        days: Array
-    },
-    components: {
-        IconButton
+  components: {
+    IconButton
+  },
+  props: {
+    days: {
+      default: null,
+      type: Array
     }
+  },
+  setup () {
+    const store = useMainStore()
+
+    const inFavorites = (id) => {
+      return store.favoritesInclude(id)
+    }
+
+    const toggleFavorite = (id, event) => {
+      event.preventDefault()
+
+      if (!store.favoritesInclude(id)) {
+        store.addFavorite(id)
+      } else {
+        store.removeFavorite(id)
+      }
+    }
+
+    return {
+      inFavorites,
+      toggleFavorite
+    }
+  }
 }
 </script>
 

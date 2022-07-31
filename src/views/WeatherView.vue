@@ -1,12 +1,25 @@
 <template>
-  <div v-if="error">WeatherView: {{ error }}</div>
-  <div v-else-if="loading">Loading...</div>
-  <div class="WeatherView" v-else>
+  <div v-if="error">
+    WeatherView: {{ error }}
+  </div>
+  <div v-else-if="loading">
+    Loading...
+  </div>
+  <div
+    v-else
+    class="WeatherView"
+  >
     <header class="WeatherView__header">
       <div class="WeatherView__header-content">
-        <h1 class="WeatherView__location">The Royal Palace</h1>
-        <p class="WeatherView__temperature">{{ data.temperatureDay }}°</p>
-        <p class="WeatherView__description">{{ data.description }}</p>
+        <h1 class="WeatherView__location">
+          The Royal Palace
+        </h1>
+        <p class="WeatherView__temperature">
+          {{ data.temperatureDay }}°
+        </p>
+        <p class="WeatherView__description">
+          {{ data.description }}
+        </p>
       </div>
 
       <div class="WeatherView__header-icon-wrapper">
@@ -14,18 +27,22 @@
           class="WeatherView__icon"
           :src="data.icon ? require(`@/assets/weather-icons/svg/${data.icon}.svg`) : null"
           :alt="data.description"
-        />
+        >
       </div>
     </header>
 
     <section class="WeatherView__meta">
       <ul class="WeatherView__attributes">
-        <li class="WeatherView__attribute" v-for="attribute in data.attributes" :key="attribute.key">
+        <li
+          v-for="attribute in data.attributes"
+          :key="attribute.key"
+          class="WeatherView__attribute"
+        >
           <img
             class="WeatherView__attribute-icon"
             :src="require(`@/assets/weather-icons/svg/${attribute.icon}.svg`)"
             :alt="attribute.description"
-          />
+          >
           <div class="WeatherView__attribute-value">
             {{ attribute.value }}{{ attribute.unit }}
           </div>
@@ -37,36 +54,48 @@
       <ul class="WeatherView__twilight-items">
         <li
           v-for="twilight in ['sunrise', 'sunset']"
+          :key="twilight"
           class="WeatherView__twilight-item"
           :class="`WeatherView__twilight-item--${twilight}`"
-          :key="twilight"
         >
           <img
             class="WeatherView__twilight-icon"
             :src="require(`@/assets/weather-icons/svg/${twilight}.svg`)"
             :alt="twilight"
-          />
-          <h3 class="WeatherView__twilight-label">{{ data.twilight === 'sunset' ? data.sunset : data.sunrise }}</h3>
+          >
+          <h3 class="WeatherView__twilight-label">
+            {{ data.twilight === 'sunset' ? data.sunset : data.sunrise }}
+          </h3>
         </li>
       </ul>
     </section>
 
     <section class="WeatherView__hourly">
-      <h2 class="WeatherView__date-description">{{ data.dateDescription }}</h2>
+      <h2 class="WeatherView__date-description">
+        {{ data.dateDescription }}
+      </h2>
 
       <div class="WeatherView__hours-wrapper">
         <ul class="WeatherView__hours">
-          <li class="WeatherView__hour" v-for="hour in data.hours" :key="hour.id">
-            <h3 class="WeatherView__hour-title">{{ hour.time }}</h3>
-  
+          <li
+            v-for="hour in data.hours"
+            :key="hour.id"
+            class="WeatherView__hour"
+          >
+            <h3 class="WeatherView__hour-title">
+              {{ hour.time }}
+            </h3>
+
             <img
               class="WeatherView__day-icon"
               :src="require(`@/assets/weather-icons/svg/${hour.icon}.svg`)"
               :alt="hour.description"
-            />
-  
-            <p class="WeatherView__hour-temperature">{{ hour.temperature }}°</p>
-          </li> 
+            >
+
+            <p class="WeatherView__hour-temperature">
+              {{ hour.temperature }}°
+            </p>
+          </li>
         </ul>
       </div>
     </section>
@@ -84,7 +113,10 @@ import { getDayFull } from '../services/ApiService.js'
 import ListOfDays from '../components/ListOfDays.vue'
 
 export default {
-  async setup() {
+  components: {
+    ListOfDays
+  },
+  async setup () {
     const error = ref(null)
     const loading = ref(null)
     const route = useRoute()
@@ -109,18 +141,15 @@ export default {
     try {
       state.data = await getViewData(route.params.id)
     } catch (e) {
-      error.value = e.response.data ?? "Not able to communicate with backend. Is the Express server running?"
+      error.value = e.response.data ?? 'Not able to communicate with backend. Is the Express server running?'
     }
 
     return {
       error,
       loading,
-      ...toRefs(state),
+      ...toRefs(state)
     }
-  },
-  components: {
-    ListOfDays
-}
+  }
 }
 </script>
 
