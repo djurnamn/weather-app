@@ -1,5 +1,5 @@
 # Weather App
-A nice little Vue app with a node backend, using Axios, Express and Redis (for caching).
+A nice little weather forecast app built with Vue 3 in the frontend using Axios, Vue Router, Pinia and vueUse (for storage) and a node backend, using Axios, moment (for time formatting), Express and Redis (for caching).
 
 ## Getting started
 
