@@ -19,7 +19,7 @@ Start up a [Redis instance via Docker](https://hub.docker.com/_/redis) on defaul
 docker run --name my-redis -p 6379:6379 -d redis
 ```
 
-Serve the Weather API (on port 3000)
+Serve the local API (by default on port 3587)
 ```
 npm run api-serve
 // or
@@ -34,7 +34,7 @@ yarn serve
 ```
 
 ## Next steps
-Some things I would add/improve if I continue working on this project:
+Some things I would add/improve if I was to continue working on this project:
 
 **Front-end:**
 - Prettier error, empty and loading states (skeleton loaders)
