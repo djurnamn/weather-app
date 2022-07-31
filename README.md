@@ -1,5 +1,5 @@
 # Weather App
-A nice little weather forecast app built with Vue 3 in the frontend using Axios, Vue Router, Pinia and vueUse (for storage) and a node backend, using Axios, moment (for time formatting), Express and Redis (for caching).
+A nice little weather forecast app built with Vue 3 in the frontend using Axios, Vue Router, Pinia and vueUse (for storage) and a node backend using Axios, moment (for time formatting), Express and Redis (for caching).
 
 ## Getting started
 
@@ -38,7 +38,7 @@ Some things I would add/improve if I was to continue working on this project:
 
 **Front-end:**
 - Prettier error, empty and loading states (skeleton loaders)
-- Transitions between views in the frontend
+- Transitions between views
 - Make dark mode functionality choosable, instead of just assumed based on preference
 - Make available locations into a variable (array of objects) that can be implemented as a select (instead of the fixed set of latitude/longitude values we're passing currently)
 - Handle blank items returned from backend, representing data for days no longer available in the response
