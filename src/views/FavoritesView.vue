@@ -49,7 +49,7 @@ export default {
         try {
           state.data = await getViewData(Object.values(favoriteIds.value))
         } catch (e) {
-          error.value = e.response
+          error.value = e.response.data ?? "Not able to communicate with backend. Is the Express server running?"
         }
 
         return {

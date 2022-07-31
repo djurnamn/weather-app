@@ -45,8 +45,8 @@ const getDataFromCacheOrExternalApi = async (lat, lon) => {
             // return response from external api
             return { ...responseEntry, source: 'api' }
         } catch(error) {
-            // TODO: improve external request related error handling
-            return error
+            // return error from external api
+            return { error: error.response.data }
         }
     }
 }
@@ -71,6 +71,10 @@ app.get('/get-day-full/:id?', async (req, res) => {
         parseFloat(req.query.lon)
     )
 
+    if (data.error) {
+        return res.status(data.error.cod).send(data.error.message)
+    }
+
     if (req.params.id && !idExists(data, req.params.id)) {
         return res.sendStatus(404)
     }
@@ -89,6 +93,10 @@ app.get('/get-days-summary/:ids?', async (req, res) => {
         parseFloat(req.query.lat),
         parseFloat(req.query.lon)
     )
+
+    if (data.error) {
+        return res.status(data.error.cod).send(data.error.message)
+    }
 
     const ids = req.query.ids ? req.query.ids.split(',') : null
     const formattedData = formatDaysSummary(data, ids)

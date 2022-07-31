@@ -109,7 +109,7 @@ export default {
     try {
       state.data = await getViewData(route.params.id)
     } catch (e) {
-      error.value = e.message
+      error.value = e.response.data ?? "Not able to communicate with backend. Is the Express server running?"
     }
 
     return {
@@ -146,6 +146,7 @@ export default {
 
     &-icon-wrapper {
       margin-left: auto;
+      flex-shrink: 0;
     }
   }
 
@@ -164,6 +165,7 @@ export default {
     font-size: 1.25rem;
     border-radius: 420rem;
     background-color: rgba(var(--c-text-rgb), 0.1);
+    text-align: center;
   }
 
   &__icon {
